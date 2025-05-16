@@ -20,6 +20,24 @@
             background: white;
             /* display: flex; */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+        }
+
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            /* 水平置中 */
+            /* align-items: center; */
+            /* 垂直置中 */
+            
+        }
+
+        .form-input {
+            /* width: 48%; */
+            height: 30px;
+            font-size: 14px;
+
         }
 
         /* input {
@@ -34,47 +52,60 @@
             margin-bottom: 5px;
         }
 
-        .sure{
+        .btn{
             margin-top: 160px;
             
         } */
 
-        .top {
+        .title {
             width: 300px;
             height: 50px;
             font-size: 25px;
-            text-align: center;     
+            /*垂直置中*/
+            text-align: center;
+            /*水平置中*/
+            line-height: 50px;
             color: white;
             background-color: rgb(103, 168, 236);
             margin-bottom: 10px;
-            
+
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <form action="check.php" method='post'>
-            <!-- method='post'、'get' -->
-            <div class='top'>
-                Login
-            </div>
-            <div>
-                <label for="acc">ID</label>
-                <input type="text" name="acc" step="0.01" min='0' required>
-            </div>
 
-            <div>
-                <label for="pw">PASSWORD</label>
-                <input type="text" name="pw">
-            </div>
 
-            <div>
-                <input class='sure' type="submit" value="登入">
-                <input class='sure' type="reset" value="清空內容">
-            </div>
-        </form>
-    </div>
+    <?php
+    if (!isset($_GET['login'])) {
+    ?>
+        <div class="container">
+            <form action="check.php" method='post'>
+                <!-- method='post'、'get' -->
+                <div class='title'>
+                    Login
+                </div>
+
+                <div class="form-container">
+                    <!-- <label for="acc">ID</label> -->
+                    <input class='form-input' type="text" name="acc" step="0.01" min='0' required placeholder="ID">
+                </div>
+
+                <div class="form-container">
+                    <!-- <label for="pw">PASSWORD</label> -->
+                    <input class='form-input' type="text" name="pw" required placeholder="Password">
+                </div>
+
+                <div>
+                    <input class='btn btn-login' type="submit" value="登入">
+                    <input class='btn btn-reset' type="reset" value="清空內容">
+                </div>
+            </form>
+        </div>
+
+    <?php
+    }
+    ?>
 
 
 </body>
