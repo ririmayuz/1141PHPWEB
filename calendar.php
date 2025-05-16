@@ -140,33 +140,36 @@
     <h1>線上日曆</h1>
 
     <?php
+    // 取得目前的月份，如果有傳入 $_GET['month'] 就使用，否則使用當前月份
     if (isset($_GET['month'])) {
         $month = $_GET['month'];
     } else {
         $month = date("m");
     }
-    
+
+    // 取得目前的年份，如果有傳入 $_GET['year'] 就使用，否則使用當前年份
     if (isset($_GET['year'])) {
         $year = $_GET['year'];
     } else {
         $year = date("Y");
     }
 
+    // 計算上一個月與對應的年份
     if ($month - 1 > 0) {
-        $prev = $month - 1;  //上個月
-        $prevyear = $year;
+        $prev = $month - 1;     // 上一個月
+        $prevyear = $year;      // 年份不變
     } else {
-        $prev = 12;  //上個月
-        $prevyear = $year - 1;
+        $prev = 12;             // 如果目前是 1 月，上一個月是 12 月
+        $prevyear = $year - 1;  // 年份減 1
     }
 
-
+    // 計算下一個月與對應的年份
     if ($month + 1 > 12) {
-        $next = 1;  //下個月
-        $nextyear = $year + 1;
+        $next = 1;              // 如果目前是 12 月，下一個月是 1 月
+        $nextyear = $year + 1;  // 年份加 1
     } else {
-        $next = $month + 1;  
-        $nextyear = $year;
+        $next = $month + 1;     // 下一個月
+        $nextyear = $year;      // 年份不變
     }
     //$month = 5;
 
@@ -231,13 +234,13 @@
     // echo "</pre>";
     ?>
 
-<div style="display:flex;width:60%;margin:0 auto;justify-content:space-between;">
+    <div style="display:flex;width:60%;margin:0 auto;justify-content:space-between;">
 
-    <a href="?year=<?=$prevyear;?>&month=<?=$prev;?>">上一月</a>
-    <a href="?year=<?=$nextyear;?>&month=<?=$next;?>">下一月</a>
-</div>
+        <a href="?year=<?= $prevyear; ?>&month=<?= $prev; ?>">上一月</a>
+        <a href="?year=<?= $nextyear; ?>&month=<?= $next; ?>">下一月</a>
+    </div>
 
-<h2><?=$year;?>年<?=$month;?>月</h2>
+    <h2><?= $year; ?>年<?= $month; ?>月</h2>
 
     <?php
 
