@@ -154,17 +154,19 @@
 
     if ($month - 1 > 0) {
         $prev = $month - 1;  //上個月
+        $prevyear = $year;
     } else {
         $prev = 12;  //上個月
-        $year = $year - 1;
+        $prevyear = $year - 1;
     }
 
 
     if ($month + 1 > 12) {
         $next = 1;  //下個月
-        $year = $year + 1;
+        $nextyear = $year + 1;
     } else {
         $next = $month + 1;  
+        $nextyear = $year;
     }
     //$month = 5;
 
@@ -231,8 +233,8 @@
 
 <div style="display:flex;width:60%;margin:0 auto;justify-content:space-between;">
 
-    <a href="?year=<?=$year;?>&month=<?=$prev;?>">上一月</a>
-    <a href="?year=<?=$year;?>&month=<?=$next;?>">下一月</a>
+    <a href="?year=<?=$prevyear;?>&month=<?=$prev;?>">上一月</a>
+    <a href="?year=<?=$nextyear;?>&month=<?=$next;?>">下一月</a>
 </div>
 
 <h2><?=$year;?>年<?=$month;?>月</h2>
