@@ -7,5 +7,4 @@ if($_POST['acc'] == 'admin' && $_POST['pw'] == '1234'){
      header("location:login.php?login=0");
 }
 
-
 ?>
