@@ -50,10 +50,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>學生管理系統</h1>
-    </header>
-    <?php include "nav.php" ?>>
+<?php include "header.php" ?>
     <main>
         <h2>歡迎來到學生管理系統</h2>
         <p>關於我們</p>

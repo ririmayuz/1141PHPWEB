@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>學生管理系統</title>
+    <title>學生管理系統-查詢學生</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,13 +59,11 @@
 </head>
 
 <body>
-
-    <?php include "header.php" ?>
+<?php include "header.php" ?>
     <main>
         <h2>歡迎來到學生管理系統</h2>
-        <p>請從上方選單選擇功能。</p>
+        <p>查詢學生</p>
     </main>
     <?php include "footer.php" ?>
-</body>
 
 </html>
