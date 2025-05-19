@@ -78,6 +78,7 @@
 
     <?php
     if (!isset($_GET['login'])) {
+        // 如果網址沒有 login → 顯示表單
     ?>
         <div class="container">
             <form action="check.php" method='post'>
@@ -105,8 +106,10 @@
 
     <?php
     } elseif (isset($_GET['login']) && $_GET['login'] == 1) {
+        // 否則，如果網址上 login=1 → 顯示登入成功
         echo "登入成功";
     } else {
+        // 其他情況（例如 login=0）→ 顯示登入失敗
         echo "登入失敗";
     }
     ?>
