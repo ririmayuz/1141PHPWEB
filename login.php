@@ -30,7 +30,7 @@
             /* 水平置中 */
             /* align-items: center; */
             /* 垂直置中 */
-            
+
         }
 
         .form-input {
@@ -83,7 +83,7 @@
             <form action="check.php" method='post'>
                 <!-- method='post'、'get' -->
                 <div class='title'>
-                    Login
+                    LoginGET
                 </div>
 
                 <div class="form-container">
@@ -104,6 +104,10 @@
         </div>
 
     <?php
+    } elseif (isset($_GET['login']) && $_GET['login'] == 1) {
+        echo "登入成功";
+    } else {
+        echo "登入失敗";
     }
     ?>
 

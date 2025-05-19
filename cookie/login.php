@@ -77,13 +77,13 @@
 
 
     <?php
-    if (!isset($_GET['login'])) {
+    if (!isset($_COOKIE['login'])) {
     ?>
         <div class="container">
             <form action="check.php" method='post'>
                 <!-- method='post'、'get' -->
                 <div class='title'>
-                    Login
+                    LoginCookie
                 </div>
 
                 <div class="form-container">
@@ -104,6 +104,8 @@
         </div>
 
     <?php
+    }else{
+        echo "登入成功";
     }
     ?>
 

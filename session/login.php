@@ -92,7 +92,7 @@
             <form action="check.php" method='post'>
                 <!-- method='post'、'get' -->
                 <div class='title'>
-                    Login
+                    LoginSession
                 </div>
 
                 <div class="form-container">
