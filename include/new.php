@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,33 +12,40 @@
             padding: 0;
             background-color: #f4f4f4;
         }
+
         header {
             background-color: #333;
             color: #fff;
             padding: 10px 0;
             text-align: center;
         }
+
         nav {
             background-color: #444;
             color: #fff;
             padding: 10px 0;
         }
+
         nav ul {
             list-style-type: none;
             padding: 0;
             text-align: center;
         }
+
         nav ul li {
             display: inline;
             margin-right: 20px;
         }
+
         nav ul li a {
             color: #fff;
             text-decoration: none;
         }
+
         main {
             padding: 20px;
         }
+
         footer {
             background-color: #333;
             color: #fff;
@@ -49,6 +57,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>學生管理系統</h1>
@@ -65,8 +74,6 @@
         <h2>歡迎來到學生管理系統</h2>
         <p>新增學生</p>
     </main>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> 學生管理系統</p>
-    </footer>
-</body>
+    <?php include "footer.php" ?>
+
 </html>

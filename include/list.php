@@ -53,20 +53,11 @@
     <header>
         <h1>學生管理系統</h1>
     </header>
-    <nav>
-        <ul>
-            <li><a href="index.php">首頁</a></li>
-            <li><a href="list.php">學生列表</a></li>
-            <li><a href="new.php">新增學生</a></li>
-            <li><a href="about.php">關於</a></li>
-        </ul>
-    </nav>
+   <?php include "nav.php" ?>
     <main>
         <h2>歡迎來到學生管理系統</h2>
         <p>學生列表</p>
     </main>
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> 學生管理系統</p>
-    </footer>
+<?php include "footer.php" ?>
 </body>
 </html>

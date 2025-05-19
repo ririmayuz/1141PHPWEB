@@ -1,0 +1,8 @@
+    <nav>
+        <ul>
+            <li><a href="index.php">首頁</a></li>
+            <li><a href="list.php">學生列表</a></li>
+            <li><a href="new.php">新增學生</a></li>
+            <li><a href="about.php">關於</a></li>
+        </ul>
+    </nav>
