@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <?php include_once "header.php"; ?>
     <?php
         // for($i=0;$i<5;$i++){
         //     include_once "header.php";
@@ -17,22 +18,29 @@
         //include_once = 有優先級
 
         $page=isset($_GET['page']) ? $_GET['page'] : 'main';
-        switch($page){
-            case 'list':
-                include "list.php";
-                break;
-            case 'new':
-                include "new.php";
-                break;
-            case 'query':
-                include "query.php";
-                break;
-            case 'about':
-                include "about.php";
-                break;
-            default:
-                include "main.php";
+        $file=$page.".php";
+        if(file_exists($file)){
+            include $file;
+        }else{
+            include "main.php";
         }
+        
+        // switch($page){
+        //     case 'list':
+        //         include "list.php";
+        //         break;
+        //     case 'new':
+        //         include "new.php";
+        //         break;
+        //     case 'query':
+        //         include "query.php";
+        //         break;
+        //     case 'about':
+        //         include "about.php";
+        //         break;
+        //     default:
+        //         include "main.php";
+        // }
 
     ?>
     <?php include "footer.php" ?>
