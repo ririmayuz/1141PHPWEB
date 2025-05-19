@@ -6,6 +6,7 @@ if(isset($_COOKIE["test_cooke"])){
 }else{
     echo "Cooke is not set:(";
     setcookie("test_cookie", "3" , time()+300,"/");
+    // 分號前面的"/"是啥
    
 }
 
