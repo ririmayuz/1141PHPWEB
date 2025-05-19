@@ -30,7 +30,7 @@
             /* 水平置中 */
             /* align-items: center; */
             /* 垂直置中 */
-            
+
         }
 
         .form-input {
@@ -52,10 +52,18 @@
             margin-bottom: 5px;
         }
 
+        */
         .btn{
-            margin-top: 160px;
+            margin-top: 135px;
+            width: 49.3%;
+            height: 33px;
+            font-size: 15px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            background-color: rgb(103, 168, 236);
             
-        } */
+        }
 
         .title {
             width: 300px;
@@ -77,7 +85,8 @@
 
 
     <?php
-    if (!isset($_GET['login'])) {
+    session_start();
+    if (!isset($_SESSION['login'])) {
     ?>
         <div class="container">
             <form action="check.php" method='post'>
@@ -104,7 +113,9 @@
         </div>
 
     <?php
-    }
+    } else{
+        echo "登入成功";
+    } 
     ?>
 
 
