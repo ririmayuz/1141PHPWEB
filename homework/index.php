@@ -51,7 +51,6 @@
             line-height: 40px;
         }
 
-        /* ✅ Flexbox 主要修改開始 */
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -107,8 +106,6 @@
             border-radius: 4px;
             padding: 2px;
         }
-
-        /* ✅ Flexbox 主要修改結束 */
     </style>
 
 
@@ -240,9 +237,6 @@
     foreach ($monthDays as $day) {
         echo "<div class='day'>"; // 外框容器：每一天的區塊
 
-        // ===== 日期資訊區塊 =====
-        echo "<div class='day-info'>";
-
         // 日期資訊
         echo "<div class='day-info'>";
         if (isset($day['day'])) {
@@ -250,7 +244,6 @@
         } else {
             echo "<span>&nbsp;</span>";
         }
-        echo "</div>";
 
         // 顯示週次（第幾週，可用來排行事曆）
         // echo "<div class='day-week'>";
