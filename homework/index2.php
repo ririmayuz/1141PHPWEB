@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>月曆</title>
-     <style>
+    <style>
         /* 今日的樣式 */
         .today {
             background-color: lightslategrey;
@@ -51,7 +51,6 @@
             line-height: 40px;
         }
 
-        /* ✅ Flexbox 主要修改開始 */
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -80,7 +79,7 @@
         .day {
             width: 60px;
             height: 90px;
-            background-color: lightblue;
+            /* background-color: lightblue; */
             border: 1px solid blue;
             box-sizing: border-box;
             display: flex;
@@ -107,8 +106,6 @@
             border-radius: 4px;
             padding: 2px;
         }
-
-        /* ✅ Flexbox 主要修改結束 */
     </style>
 
 
@@ -205,7 +202,12 @@
                 "todo" => $todo
             ];
     }
-
+    $daystuff = 7 - (count($monthDays) % 7);
+    if ($daystuff < 7) {
+        for ($i = 0; $i < $daystuff; $i++) {
+            $monthDays[] = []; // 補空白格
+        }
+    }
     // echo "<pre>";
     // print_r($monthDays);
     // echo "</pre>";
@@ -234,65 +236,58 @@
 
     <!-- 月曆格子 -->
     <div class="container calendar">
-    <?php
+        <?php
 
-    // 使用 foreach 迴圈印出每一天的資料
-    foreach ($monthDays as $day) {
-        echo "<div class='day'>"; // 外框容器：每一天的區塊
+        // 使用 foreach 迴圈印出每一天的資料
+        $today = date("Y-m-d");
+        foreach ($monthDays as $day) {
 
-        // ===== 日期資訊區塊 =====
-        echo "<div class='day-info'>";
+            $classes = 'day';
+            if (isset($day['fullDate']) && $day['fullDate'] === date("Y-m-d")) {
+                $classes .= ' today';
+            }
+            echo "<div class='$classes'>";
 
-        // 日期資訊
-        echo "<div class='day-info'>";
-        if (isset($day['day'])) {
-            echo "<span>" . $day["day"] . "</span>";
-        } else {
-            echo "<span>&nbsp;</span>";
-        }
-        echo "</div>";
+            // 日期資訊
+            echo "<div class='day-info'>";
+            if (isset($day['day'])) {
+                echo "<span>" . $day["day"] . "</span>";
+            } else {
+                echo "<span>&nbsp;</span>";
+            }
 
-        // 顯示週次（第幾週，可用來排行事曆）
-        // echo "<div class='day-week'>";
-        // if (isset($day['weekOfYear'])) {
-        //     echo $day["weekOfYear"];
-        // } else {
-        //     echo "&nbsp;";
-        // }
-        // echo "</div>";
-
-        echo "</div>"; // 關閉 day-info 區塊
+            echo "</div>"; // 關閉 day-info 區塊
 
 
-        // ===== 節日資訊區塊 =====
-        echo "<div class='holiday-info'>";
-        if (isset($day['holiday'])) {
-            echo "<div class='holiday'>";
-            echo $day['holiday']; // 節日名稱
+            // ===== 節日資訊區塊 =====
+            echo "<div class='holiday-info'>";
+            if (isset($day['holiday'])) {
+                echo "<div class='holiday'>";
+                echo $day['holiday']; // 節日名稱
+                echo "</div>";
+            } else {
+                echo "&nbsp;";
+            }
             echo "</div>";
-        } else {
-            echo "&nbsp;";
-        }
-        echo "</div>";
 
 
-        // ===== 待辦事項區塊 =====
-        echo "<div class='todo-info'>";
-        if (isset($day['todo']) && !empty($day['todo'])) {
-            echo "<div class='todo'>";
-            echo $day['todo']; // 每日待辦事項
+            // ===== 待辦事項區塊 =====
+            echo "<div class='todo-info'>";
+            if (isset($day['todo']) && !empty($day['todo'])) {
+                echo "<div class='todo'>";
+                echo $day['todo']; // 每日待辦事項
+                echo "</div>";
+            } else {
+                echo "&nbsp;";
+            }
             echo "</div>";
-        } else {
-            echo "&nbsp;";
+
+            echo "</div>"; // 關閉 box 區塊
         }
-        echo "</div>";
 
-        echo "</div>"; // 關閉 box 區塊
-    }
+        echo "</div>"; // 結束整體月曆容器 .container
 
-    echo "</div>"; //????在哪裡
-
-    ?>
+        ?>
 
 
 

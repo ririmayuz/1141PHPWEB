@@ -79,7 +79,7 @@
         .day {
             width: 60px;
             height: 90px;
-            background-color: lightblue;
+            /* background-color: lightblue; */
             border: 1px solid blue;
             box-sizing: border-box;
             display: flex;
@@ -239,8 +239,14 @@
         <?php
 
         // 使用 foreach 迴圈印出每一天的資料
+        $today = date("Y-m-d");
         foreach ($monthDays as $day) {
-            echo "<div class='day'>"; // 外框容器：每一天的區塊
+
+            $classes = 'day';
+            if (isset($day['fullDate']) && $day['fullDate'] === date("Y-m-d")) {
+                $classes .= ' today';
+            }
+            echo "<div class='$classes'>";
 
             // 日期資訊
             echo "<div class='day-info'>";
@@ -249,15 +255,6 @@
             } else {
                 echo "<span>&nbsp;</span>";
             }
-
-            // 顯示週次（第幾週，可用來排行事曆）
-            // echo "<div class='day-week'>";
-            // if (isset($day['weekOfYear'])) {
-            //     echo $day["weekOfYear"];
-            // } else {
-            //     echo "&nbsp;";
-            // }
-            // echo "</div>";
 
             echo "</div>"; // 關閉 day-info 區塊
 
