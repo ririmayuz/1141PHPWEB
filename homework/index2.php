@@ -4,44 +4,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>月曆</title>
+    <title>線上月曆</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: auto;
+        }
+
+        .container {
+            width: 900px;
+            margin: 40px auto;
+            background: white;
+            display: flex;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+        }
+
+        .left-column {
+            margin: 0;
+            background-color: #2ecc71;
+            /* 綠色背景 */
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .calendar-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-day {
+            font-size: 64px;
+            font-weight: bold;
+        }
+
+        .calendar-month {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .calendar-year {
+            font-size: 16px;
+            margin-top: 4px;
+            color: #ffffffcc;
+        }
+
+        .nav-button {
+            font-size: 36px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-button:hover {
+            opacity: 0.7;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+            /* 滑鼠滑過時淡化，提供互動感 */
+        }
+
+        .right-column {
+            background-color: lightpink;
+            padding: 3%;
+            /* height: 1000px; */
+        }
+
+        table {
+            width: 85%;
+            border-collapse: collapse;
+            /* margin: 0 auto; */
+            /* 只有在設定寬度後才有效，讓表格置中 */
+        }
+
+        td,
+        th {
+            width: 125px;
+            order: none;
+            text-align: center;
+            padding: 5px 10px;
+            /* 先移除所有邊框 */
+            border-bottom: 1px solid black;
+            /* 只保留下邊框 */
+        }
+
+        th {
+            height: 30px;
+        }
+
+        td {
+            height: 70px;
+        }
+
         /* 今日的樣式 */
         .today {
-            background-color: lightslategrey;
+            background-color: lightblue;
             font-weight: bold;
             color: white;
         }
 
         /* 其他月份的日期樣式 */
         .other-month {
-            background-color: gray;
+            /* background-color: gray; */
             font-size: 10px;
             color: #aaa;
+            /* 淡色文字 */
         }
 
-        /* 節日樣式 */
+        /* 週末（假日）樣式 */
         .holiday {
-            background-color: pink;
-            color: white;
+            /* background-color: pink; */
+            color: rgb(119, 170, 236);
         }
 
         /* 滑鼠移到格子上時的效果（不套在第一列） */
-        .calendar .day:hover {
-            background-color: lightseagreen;
+        tr:not(tr:nth-child(1)) td:hover {
+            background-color: rgb(100, 22, 196);
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
         }
 
-        /* 過去的日期樣式 */
+        /* 過去的日期樣式（可搭配 today / holiday / other-month 同時出現） */
         .pass-date {
+            /* background-color: lightgray; */
+            /* 如果你想淡化背景可以打開 */
             color: #aaa;
+            /* 文字變淡 */
         }
 
         .date-num {
-            font-size: 14px;
-            text-align: left;
+            font-size: 15px;
+            text-align: center;
         }
 
         .date-event {
@@ -49,71 +156,32 @@
             width: 80px;
             text-align: center;
             line-height: 40px;
+
         }
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            width: 420px;
-            margin: 0 auto;
-            box-sizing: border-box;
+        .day-num {
+            display: inline-block;
+            width: 80%;
         }
 
-        .weekday-row {
-            display: flex;
-            width: 420px;
-            margin: 0 auto;
-        }
-
-        .weekday {
-            width: 60px;
-            height: 25px;
-            background-color: lightblue;
-            border: 1px solid blue;
-            box-sizing: border-box;
-            text-align: center;
-            line-height: 25px;
-            font-weight: bold;
-        }
-
-        .day {
-            width: 60px;
-            height: 90px;
-            /* background-color: lightblue; */
-            border: 1px solid blue;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 2px;
-        }
-
-        .day-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-        }
-
-        .holiday-info,
-        .todo-info {
-            font-size: 12px;
-            text-align: center;
-            word-wrap: break-word;
-        }
-
-        .todo {
-            background-color: lightyellow;
-            border-radius: 4px;
-            padding: 2px;
+        .day-num {
+            /* color: #cf2323; */
+            font-size: 14px;
         }
     </style>
-
 
 </head>
 
 <body>
 
+
     <?php
+    //當前選擇的日期
+    if (isset($_GET['year']) && isset($_GET['month'])) {
+        $selectDate = strtotime($_GET['year'] . '-' . $_GET['month'] . '-01');
+    } else {
+        $selectDate = strtotime(date("Y-m-01")); // 若無傳參數，使用今天的年月
+    }
     // 取得目前的月份，如果有傳入 $_GET['month'] 就使用，否則使用當前月份
     if (isset($_GET['month'])) {
         $month = $_GET['month'];
@@ -165,6 +233,14 @@
 
     $todoList = ['2025-05-09' => '開會'];
 
+    // 左邊顯示的日期預設值是今天
+    $selectDay = date("j"); 
+    $selectMonth = isset($_GET['month']) ? $_GET['month'] : date("n"); 
+    $selectYear = isset($_GET['year']) ? $_GET['year'] : date("Y"); 
+
+    // 組合成 YYYY-MM-DD 格式，轉為 timestamp
+    $selectDate = strtotime("$selectYear-$selectMonth-$selectDay");
+
     $monthDays = [];
 
     //填入空白日期
@@ -202,95 +278,105 @@
                 "todo" => $todo
             ];
     }
-    $daystuff = 7 - (count($monthDays) % 7);
-    if ($daystuff < 7) {
-        for ($i = 0; $i < $daystuff; $i++) {
-            $monthDays[] = []; // 補空白格
-        }
-    }
+
     // echo "<pre>";
     // print_r($monthDays);
     // echo "</pre>";
     ?>
 
-    <!-- 上下月份切換 -->
-    <div style="display:flex;width:60%;margin:0 auto;justify-content:space-between;">
-        <a href="?year=<?= $prevyear; ?>&month=<?= $prev; ?>">上一月</a>
-        <a href="?year=<?= $nextyear; ?>&month=<?= $next; ?>">下一月</a>
+    <h2 style='text-align:center;'>
+        <?= date("Y 年 m 月"); ?>
+    </h2>
+    <div class="container">
+
+
+        <div class="left-column">
+
+
+            <div class="nav-button">
+                <a href="?year=<?= $prevyear; ?>&month=<?= $prev; ?>" class="nav-link">‹</a>
+            </div>
+            <div class="nav-button">
+                <a href="?year=<?= $nextyear; ?>&month=<?= $next; ?>" class="nav-link">›</a>
+            </div>
+            <div class="calendar-date">
+                <div class="calendar-day"><?= date("d", $selectDate); ?></div>
+                <div class="calendar-month"><?= date("M", $selectDate); ?></div>
+                <div class="calendar-year"><?= date("Y", $selectDate); ?></div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <table>
+                <tr>
+                    <th>MON</th>
+                    <th>TUE</th>
+                    <th>WED</th>
+                    <th>THE</th>
+                    <th>FRI</th>
+                    <th>SAT</th>
+                    <th>SUN</th>
+                </tr>
+
+
+                <?php
+                for ($i = 0; $i < 6; $i++) {
+                    echo "<tr>";
+
+                    for ($j = 0; $j < 7; $j++) {
+                        // === 計算當前格子的日期 ===
+                        // 原寫法是直接算日數：$j + 1 + ($i * 7) - $firstDayWeek
+                        // 改用 strtotime 處理跨月更準確，不用額外判斷
+                        $day = $j + ($i * 7) - $firstDayWeek;
+                        $timestamp = strtotime("$day days", strtotime($firstDay));
+                        $date = date("Y-m-d", $timestamp);
+                        $class = ""; // 初始化格子 class
+
+                        // === 加入對應的 class ===
+
+                        // 週末（六、日）
+                        if (date("N", $timestamp) > 5) {
+                            $class .= " holiday";
+                        }
+
+                        // 今日
+                        if ($today == $date) {
+                            $class = $class . " today";
+
+                            // 非本月日期
+                        } else if (date("m", $timestamp) != date("m", strtotime($firstDay))) {
+                            $class .= " other-month";
+                        }
+
+                        // 已過的日期（今天之前）
+                        if ($timestamp < strtotime($today)) {
+                            $class .= " pass-date";
+                        }
+
+                        // === 輸出表格格子（只顯示日） ===
+                        echo "<td class='$class' data-date='$date' title='這是 $date'>";
+
+                        echo "<div class='day-num'>";
+                        echo date("d", $timestamp);
+                        echo "</div>";
+
+                        echo "<div class='day-event'>";
+                        if (isset($spDate[$date])) {
+                            echo $spDate[$date];
+                        }
+
+                        echo "</div>";
+
+                        echo "</td>";
+                    }
+
+                    echo "</tr>";
+                }
+                ?>
+
+            </table>
+        </div>
     </div>
-
-    <!-- 月份標題 -->
-    <h2><?= $year; ?>年<?= $month; ?>月</h2>
-    <h2 style='text-align:center;'><?= date("Y 年 m 月"); ?></h2>
-
-    <!-- 星期標題列 -->
-    <div class="weekday-row">
-        <div class="weekday">日</div>
-        <div class="weekday">一</div>
-        <div class="weekday">二</div>
-        <div class="weekday">三</div>
-        <div class="weekday">四</div>
-        <div class="weekday">五</div>
-        <div class="weekday">六</div>
-    </div>
-
-    <!-- 月曆格子 -->
-    <div class="container calendar">
-        <?php
-
-        // 使用 foreach 迴圈印出每一天的資料
-        $today = date("Y-m-d");
-        foreach ($monthDays as $day) {
-
-            $classes = 'day';
-            if (isset($day['fullDate']) && $day['fullDate'] === date("Y-m-d")) {
-                $classes .= ' today';
-            }
-            echo "<div class='$classes'>";
-
-            // 日期資訊
-            echo "<div class='day-info'>";
-            if (isset($day['day'])) {
-                echo "<span>" . $day["day"] . "</span>";
-            } else {
-                echo "<span>&nbsp;</span>";
-            }
-
-            echo "</div>"; // 關閉 day-info 區塊
-
-
-            // ===== 節日資訊區塊 =====
-            echo "<div class='holiday-info'>";
-            if (isset($day['holiday'])) {
-                echo "<div class='holiday'>";
-                echo $day['holiday']; // 節日名稱
-                echo "</div>";
-            } else {
-                echo "&nbsp;";
-            }
-            echo "</div>";
-
-
-            // ===== 待辦事項區塊 =====
-            echo "<div class='todo-info'>";
-            if (isset($day['todo']) && !empty($day['todo'])) {
-                echo "<div class='todo'>";
-                echo $day['todo']; // 每日待辦事項
-                echo "</div>";
-            } else {
-                echo "&nbsp;";
-            }
-            echo "</div>";
-
-            echo "</div>"; // 關閉 box 區塊
-        }
-
-        echo "</div>"; // 結束整體月曆容器 .container
-
-        ?>
-
-
-
 </body>
 
 </html>
