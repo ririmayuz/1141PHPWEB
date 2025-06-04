@@ -124,7 +124,9 @@
         /* === 右側表格區塊 === */
         .right-column {
             background-color: lightpink;
-            padding: 3%;
+            padding-left: 3%;
+            padding-bottom: 3%;
+            padding-right: 3%;
         }
 
         /* 表格樣式 */
