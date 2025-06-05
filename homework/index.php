@@ -18,14 +18,14 @@
             margin: 40px auto;
             background: white;
             display: flex;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             border-radius: 6px;
         }
 
         /* === 左側區塊 === */
         .left-column {
             margin: 0;
-            background-color: #2ecc71;
+            background-color: rgb(136, 115, 100);
             /* 綠色背景 */
             width: 45%;
             display: flex;
@@ -68,7 +68,6 @@
             margin-bottom: 20px;
         }
 
-        /* 左側箭頭區 */
         .nav-button {
             font-size: 36px;
             cursor: pointer;
@@ -80,9 +79,9 @@
             opacity: 0.7;
         }
 
-        /* 左側箭頭連結樣式 */
+        /* 箭頭連結樣式 */
         .nav-link {
-            color: white;
+            color: rgb(136, 115, 100);
             text-decoration: none;
             transition: opacity 0.3s;
         }
@@ -93,6 +92,7 @@
 
         /* === 中間上方控制列：上一月 / 今天 / 下一月 === */
         .calendar-nav {
+            color: rgb(136, 115, 100);
             display: flex;
             justify-content: center;
             /* 水平置中 */
@@ -105,8 +105,8 @@
 
         .calendar-nav a,
         .calendar-nav button {
-            background-color: #2ecc71;
-            color: white;
+            background-color: rgb(136, 115, 100);
+
             border: none;
             padding: 6px 12px;
             border-radius: 5px;
@@ -121,9 +121,19 @@
             opacity: 0.8;
         }
 
+        .tdBtn {
+            background-color: rgb(136, 115, 100);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            /* cursor: pointer; */
+        }
+
         /* === 右側表格區塊 === */
         .right-column {
-            background-color: lightpink;
+            width: 70%;
+            background-color: white;
             padding-left: 3%;
             padding-bottom: 3%;
             padding-right: 3%;
@@ -131,21 +141,24 @@
 
         /* 表格樣式 */
         table {
-            width: 85%;
             border-collapse: collapse;
         }
 
         td,
         th {
-            width: 125px;
+            width: 100px;
             order: none;
             text-align: center;
-            padding: 5px 10px;
-            border-bottom: 1px solid black;
+            padding-top: 5px;
+            border-bottom: 1px solid rgb(136, 115, 100);
+            color: rgb(136, 115, 100);
+            vertical-align: top;
         }
 
         th {
             height: 30px;
+            /* font-weight: bold; */
+
         }
 
         td {
@@ -156,28 +169,19 @@
 
         /* 今日的樣式 */
         .today {
-            background-color: lightblue;
+            background-color: rgb(164, 191, 225);
             font-weight: bold;
             color: white;
         }
 
         /* 其他月份的日期 */
         .other-month {
-            font-size: 10px;
             color: #aaa;
         }
 
         /* 週末 */
         .holiday {
-            color: rgb(119, 170, 236);
-        }
-
-        /* 滑鼠移到格子上時的效果（不套用表頭） */
-        tr:not(tr:nth-child(1)) td:hover {
-            background-color: rgb(100, 22, 196);
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
+            color: rgb(105, 150, 208);
         }
 
         /* 過去日期樣式 */
@@ -185,25 +189,20 @@
             color: #aaa;
         }
 
-        /* 日期數字樣式 */
-        .date-num {
-            font-size: 15px;
-            text-align: center;
-        }
-
         /* 事件區域 */
-        .date-event {
+        .day-event {
             height: 40px;
             width: 80px;
             text-align: center;
-            line-height: 40px;
+            font-size: 12px;
         }
 
         /* 每格內的數字 */
         .day-num {
-            display: inline-block;
+            /* display: inline-block; */
             width: 80%;
             font-size: 14px;
+            text-align: center;
         }
     </style>
 
@@ -252,12 +251,10 @@
     }
     //$month = 5;
 
-    $today = date("Y-$month-d");
-    $firstDay = date("Y-$month-01"); //文字模板  
+    $today = date("Y-m-d");
+    $firstDay = date("Y-$month-01");
     $firstDayWeek = date("w", strtotime($firstDay)); // w = 在這一週的哪一天
     $theDaysOfMonth = date("t", strtotime($firstDay));
-    //變數用駝峰式命名法:小駝峰 theDaysOfMonth/大駝峰 TheDaysOfMonth
-    //蛇型/鍊式命名法 the_days_of_month / the-days-of-month
 
     $spDate = [
         '2025-04-04' => '兒童節',
@@ -265,10 +262,29 @@
         '2025-05-01' => '勞動節',
         '2025-05-11' => '母親節',
         '2025-05-30' => '端午節',
-        '2025-06-07' => '生日'
+        '2026-06-07' => '生日',
+        '2025-06-07' => '生日',
+        '2024-06-07' => '生日',
+        '2023-06-07' => '生日',
+        '2022-06-07' => '生日',
+        '2021-06-07' => '生日',
+        '2026-10-10' => '雙十節',
+        '2025-10-10' => '雙十節',
+        '2024-10-10' => '雙十節',
+        '2023-10-10' => '雙十節',
+        '2022-10-10' => '雙十節',
+        '2021-10-10' => '雙十節'
     ];
 
-    $todoList = ['2025-05-09' => '開會'];
+    $todoList = [
+        '2020-05-09' => '同學會',
+        '2021-05-09' => '同學會',
+        '2022-05-09' => '同學會',
+        '2023-05-09' => '同學會',
+        '2024-05-09' => '同學會',
+        '2025-05-09' => '同學會',
+        '2026-05-09' => '同學會'
+    ];
 
     // 左邊顯示的日期預設值是今天
     $selectDay = date("j");
@@ -289,6 +305,7 @@
         $timestamp = strtotime(" $i days", strtotime($firstDay));
         $date = date("d", $timestamp);
         $holiday = "";
+
 
         foreach ($spDate as $d => $value) {
             if ($d == date("Y-m-d", $timestamp)) {
@@ -311,14 +328,11 @@
                 "week" => date("w", $timestamp),
                 "daysOfYear" => date("z", $timestamp),
                 "workday" => date("N", $timestamp) < 6 ? true : false,
-                "holiday" => $holiday, //在前面的foreach已經處理該變數
+                "holiday" => $holiday,
                 "todo" => $todo
             ];
     }
 
-    // echo "<pre>";
-    // print_r($monthDays);
-    // echo "</pre>";
     ?>
     <div class="container">
 
@@ -338,7 +352,7 @@
                 </div>
 
                 <form method="get" style="display:inline;">
-                    <button type="submit" style="background-color: #2ecc71; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Today</button>
+                    <button type="submit" class="tdBtn">Today</button>
                 </form>
 
                 <div class="nav-button">
@@ -364,8 +378,6 @@
 
                     for ($j = 0; $j < 7; $j++) {
                         // === 計算當前格子的日期 ===
-                        // 原寫法是直接算日數：$j + 1 + ($i * 7) - $firstDayWeek
-                        // 改用 strtotime 處理跨月更準確，不用額外判斷
                         $day = $j + ($i * 7) - $firstDayWeek;
                         $timestamp = strtotime("$day days", strtotime($firstDay));
                         $date = date("Y-m-d", $timestamp);
@@ -379,8 +391,11 @@
                         }
 
                         // 今日
-                        if ($today == $date) {
-                            $class = $class . " today";
+                        if (date("Y-m-d", $timestamp) == date("Y-m-d")) {
+                            $class .= " today";
+                        // if ($today == $date) {
+                        //     $class = $class . " today";
+                            
 
                             // 非本月日期
                         } else if (date("m", $timestamp) != date("m", strtotime($firstDay))) {
@@ -393,7 +408,7 @@
                         }
 
                         // === 輸出表格格子（只顯示日） ===
-                        echo "<td class='$class' data-date='$date' title='這是 $date'>";
+                        echo "<td class='$class' data-date='$date' title=' $date'>";
 
                         echo "<div class='day-num'>";
                         echo date("d", $timestamp);
