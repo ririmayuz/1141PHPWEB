@@ -6,27 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>線上月曆</title>
     <style>
-        /* === 全域樣式 === */
         * {
             box-sizing: border-box;
             margin: auto;
         }
 
-        /* === 容器與主要結構 === */
         .container {
             width: 900px;
             margin: 40px auto;
             background: white;
             display: flex;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            border-radius: 6px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         /* === 左側區塊 === */
         .left-column {
             margin: 0;
             background-color: rgb(136, 115, 100);
-            /* 綠色背景 */
             width: 45%;
             display: flex;
             flex-direction: column;
@@ -157,15 +155,17 @@
 
         th {
             height: 30px;
-            /* font-weight: bold; */
+            font-weight: bold;
+            font-size: 18px;
+            color: rgb(65, 138, 227);
+            font-family: Arial, sans-serif;
 
         }
 
         td {
             height: 70px;
-        }
+        } 
 
-        /* === 日期樣式 === */
 
         /* 今日的樣式 */
         .today {
@@ -252,7 +252,7 @@
     //$month = 5;
 
     $today = date("Y-m-d");
-    $firstDay = date("Y-$month-01");
+    $firstDay = date("Y-m-d", strtotime("$year-$month-01"));
     $firstDayWeek = date("w", strtotime($firstDay)); // w = 在這一週的哪一天
     $theDaysOfMonth = date("t", strtotime($firstDay));
 
@@ -362,13 +362,13 @@
 
             <table>
                 <tr>
+                    <th>SUN</th>
                     <th>MON</th>
                     <th>TUE</th>
                     <th>WED</th>
                     <th>THE</th>
                     <th>FRI</th>
                     <th>SAT</th>
-                    <th>SUN</th>
                 </tr>
 
 
@@ -393,9 +393,9 @@
                         // 今日
                         if (date("Y-m-d", $timestamp) == date("Y-m-d")) {
                             $class .= " today";
-                        // if ($today == $date) {
-                        //     $class = $class . " today";
-                            
+                            // if ($today == $date) {
+                            //     $class = $class . " today";
+
 
                             // 非本月日期
                         } else if (date("m", $timestamp) != date("m", strtotime($firstDay))) {
