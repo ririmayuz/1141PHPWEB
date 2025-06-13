@@ -366,7 +366,7 @@
                     <th>MON</th>
                     <th>TUE</th>
                     <th>WED</th>
-                    <th>THE</th>
+                    <th>THU</th>
                     <th>FRI</th>
                     <th>SAT</th>
                 </tr>
